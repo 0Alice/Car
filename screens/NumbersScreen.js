@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextInput, View,Button,Text} from 'react-native';
-import {addRepair} from '../redux/actions'
+import { addNumber } from '../redux/actions'
 
-class RepairScreen extends Component {
+class NumbersScreen extends Component {
     static navigationOptions = {
-        title:'Naprawy',
+        title:'Ważne numery',
       };
     constructor(props) {
         super(props);
         this.state = {
-            newRepair: ''
+            newNumber: ''
         }
     }
     onTextInputChange = (text) => {
         this.setState({
-            newRepair: text
+            newNumber: text
         })
     }
     onAdd=()=>{
-        this.props.addRepair(this.state.newRepair);
+        this.props.addNumber(this.state.newNumber);
         this.setState({
-            newRepair:''
+            newNumber:""
         })
     }
     render() {
@@ -29,16 +29,16 @@ class RepairScreen extends Component {
             <View>
                 <TextInput
                     style={{ height: 40, fontSize: 20 }}
-                    placeholder="Wprowadź informacje o naprawie"
-                    value={this.state.newRepair}
+                    placeholder="Wprowadź numer"
+                    value={this.state.newNumber}
                     onChangeText={this.onTextInputChange}
                 />
                 <Button
                     title="Dodaj"
                     onPress={this.onAdd}
                 />
-                {this.props.repairsList.map((row)=>
-                <Text
+                {this.props.numbersList.map((row)=>
+                <Text 
                 style={{ height: 40, fontSize: 20 }}
                 key={row}>{row}</Text>
                 )
@@ -54,11 +54,11 @@ const mapStateToProps = (storeState,ownProps) =>{
     const id=ownProps.navigation.state.params.id;
     const car=storeState.reducerY.carList.filter(car=>{return car.carId===id})[0];
     return{
-        repairsList:car.repairsList,
+        numbersList:car.numbersList,
     }
-};
+  };
   
 const mapDispatchToProps = (dispatch,ownProps)=>({
-    addRepair:(newRepair)=>dispatch(addRepair(newRepair,ownProps.navigation.state.params.id))
+    addNumber:(newNumber) => dispatch(addNumber(newNumber,ownProps.navigation.state.params.id)),
   });
-export default connect(mapStateToProps,mapDispatchToProps)(RepairScreen);
+export default connect(mapStateToProps,mapDispatchToProps)(NumbersScreen);

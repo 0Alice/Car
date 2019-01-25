@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text,TextInput, View } from 'react-native';
 
-export default class ProfileScreen extends Component {
+class ProfileScreen extends Component {
   constructor(){
     super();
     this.state={
@@ -32,3 +33,13 @@ export default class ProfileScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = (storeState) =>({
+  //carList:storeState.carList
+});
+
+const mapDispatchToProps = (dispatch)=>({
+//add:(carId)=>dispatch(addCar), //Nie wiem czy tu dobrze wpisałam parametr carID
+//remove:(carId)=>dispatch(removeCar),
+});
+export default connect(mapStateToProps,mapDispatchToProps)(ProfileScreen);
